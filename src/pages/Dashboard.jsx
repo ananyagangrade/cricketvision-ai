@@ -39,14 +39,15 @@ export default function Dashboard() {
 
     const barData = useMemo(
         () => [
-            { shot: "Cover Drive", count: 18 },
-            { shot: "Pull Shot", count: 12 },
-            { shot: "Straight", count: 14 },
-            { shot: "Cut Shot", count: 9 },
-            { shot: "Sweep", count: 7 },
+            { shot: "Cricket", count: 18 },
+            { shot: "Football", count: 12 },
+            { shot: "Badminton", count: 14 },
+            { shot: "Basketball", count: 9 },
+            { shot: "Tennis", count: 7 },
         ],
         []
     );
+
 
     const feedback = useMemo(
         () => [
@@ -71,7 +72,7 @@ export default function Dashboard() {
                     <div>
                         <p className="text-3xl font-bold">Performance Dashboard</p>
                         <p className="text-white/70 mt-2 text-sm">
-                            Timeline insights, shot patterns and AI feedback summary. :contentReference[oaicite:2]{index = 2}
+                            Timeline insights, shot patterns and AI feedback summary.
                         </p>
                     </div>
 
@@ -147,10 +148,11 @@ export default function Dashboard() {
                         transition={{ duration: 0.5, delay: 0.06 }}
                         className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6"
                     >
-                        <p className="font-semibold">Most Played Shots</p>
+                        <p className="font-semibold">Most Analyzed Sports</p>
                         <p className="text-sm text-white/60 mt-1">
-                            Distribution of detected batting shots.
+                            Distribution of detected sports activities (demo).
                         </p>
+
 
                         <div className="mt-4 h-72">
                             <ResponsiveContainer width="100%" height="100%">
@@ -222,10 +224,7 @@ export default function Dashboard() {
                             </button>
                         </div>
 
-                        <div className="mt-6 rounded-2xl border border-white/10 bg-[#0B1020] p-4 text-xs text-white/60">
-                            Tip: In your final version, this dashboard will be linked to your
-                            backend + Supabase database.
-                        </div>
+
                     </motion.div>
                 </div>
             </div>

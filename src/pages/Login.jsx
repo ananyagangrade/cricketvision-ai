@@ -28,7 +28,7 @@ export default function Login() {
                         🏏
                     </div>
                     <div>
-                        <p className="font-semibold">CricketVision AI</p>
+                        <p className="font-semibold">SportsVision AI</p>
                         <p className="text-xs text-white/60">Login to your account</p>
                     </div>
                 </div>
@@ -40,7 +40,7 @@ export default function Login() {
                             type="email"
                             value={form.email}
                             onChange={(e) => setForm({ ...form, email: e.target.value })}
-                            placeholder="ananya@gmail.com"
+                            placeholder="Enter your email"
                             className="mt-2 w-full rounded-2xl border border-white/10 bg-[#0B1020] px-4 py-3 outline-none focus:border-white/30"
                         />
                     </div>

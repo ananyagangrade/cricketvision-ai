@@ -85,9 +85,9 @@ export default function UploadVideo() {
                 >
                     <div className="flex items-center justify-between gap-4 flex-wrap">
                         <div>
-                            <p className="text-2xl font-bold">Upload Cricket Video</p>
+                            <p className="text-2xl font-bold">Upload Sports Video</p>
                             <p className="text-white/70 text-sm mt-1">
-                                Upload long-duration training/match video (5–6 hours). The system will split it into clips and generate AI feedback. :contentReference[oaicite:1]{index = 1}
+                                Upload long-duration training/match video. The system will split it into clips and generate AI feedback.
                             </p>
                         </div>
 
@@ -207,9 +207,9 @@ export default function UploadVideo() {
                     {/* Next Steps */}
                     <div className="mt-6 grid md:grid-cols-3 gap-4">
                         {[
-                            { t: "Step 1", d: "Upload 5–6 hour cricket video" },
-                            { t: "Step 2", d: "Auto split into ball/action clips" },
-                            { t: "Step 3", d: "AI analysis + feedback + dashboard" },
+                            { t: "Step 1", d: "Upload your training/match video" },
+                            { t: "Step 2", d: "Auto split into important action clips" },
+                            { t: "Step 3", d: "AI insights + feedback + dashboard" },
                         ].map((x, i) => (
                             <motion.div
                                 key={i}
