@@ -1,339 +1,238 @@
-import React, { useMemo } from "react";
+
+
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import {
-    LineChart,
-    Line,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
-    ResponsiveContainer,
-    BarChart,
-    Bar,
-} from "recharts";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function Dashboard() {
-    const stats = useMemo(
-        () => [
-            { title: "Clips Generated", value: "124", icon: "🎬", color: "from-blue-500 to-cyan-500" },
-            { title: "Shot Accuracy", value: "87%", icon: "🎯", color: "from-green-500 to-emerald-500" },
-            { title: "Consistency Score", value: "8.2/10", icon: "📊", color: "from-purple-500 to-pink-500" },
-            { title: "AI Feedback Points", value: "42", icon: "🧠", color: "from-orange-500 to-red-500" },
-        ],
-        []
-    );
+export default function Register() {
+    const navigate = useNavigate();
+    const [form, setForm] = useState({ 
+        name: "", 
+        email: "", 
+        password: "", 
+        confirmPassword: "" 
+    });
+    const [isLoading, setIsLoading] = useState(false);
 
-    const lineData = useMemo(
-        () => [
-            { day: "Mon", accuracy: 72 },
-            { day: "Tue", accuracy: 75 },
-            { day: "Wed", accuracy: 78 },
-            { day: "Thu", accuracy: 81 },
-            { day: "Fri", accuracy: 84 },
-            { day: "Sat", accuracy: 87 },
-            { day: "Sun", accuracy: 86 },
-        ],
-        []
-    );
-
-    const barData = useMemo(
-        () => [
-            { shot: "Cricket", count: 18 },
-            { shot: "Football", count: 12 },
-            { shot: "Badminton", count: 14 },
-            { shot: "Basketball", count: 9 },
-            { shot: "Tennis", count: 7 },
-        ],
-        []
-    );
-
-    const feedback = useMemo(
-        () => [
-            "Backlift slightly delayed on fast deliveries → lift earlier for timing.",
-            "Head position stable, but keep eyes on the ball longer for control.",
-            "Footwork is improving, maintain balance on backfoot shots.",
-            "Try adjusting grip pressure for smoother bat swing.",
-        ],
-        []
-    );
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        if (!form.name || !form.email || !form.password || !form.confirmPassword) return;
+        if (form.password !== form.confirmPassword) return;
+        
+        setIsLoading(true);
+        // Simulate loading
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        setIsLoading(false);
+        navigate("/dashboard");
+    };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-[#070A14] via-[#0A0F1C] to-[#0D1117] text-white px-4 py-10 relative overflow-hidden">
-            {/* Background decorations */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="min-h-screen bg-gradient-to-br from-[#070A14] via-[#0A0F1C] to-[#0D1117] text-white flex items-center justify-center px-4 relative overflow-hidden">
+            {/* Animated background elements */}
+            <div className="absolute inset-0 overflow-hidden">
                 <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-                    className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full blur-3xl"
+                    animate={{
+                        x: [0, -100, 0],
+                        y: [0, 100, 0],
+                    }}
+                    transition={{
+                        duration: 22,
+                        repeat: Infinity,
+                        ease: "linear"
+                    }}
+                    className="absolute -top-40 -right-40 w-80 h-80 bg-green-500/10 rounded-full blur-3xl"
                 />
                 <motion.div
-                    animate={{ rotate: -360 }}
-                    transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-                    className="absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-r from-purple-500/5 to-pink-500/5 rounded-full blur-3xl"
+                    animate={{
+                        x: [0, 100, 0],
+                        y: [0, -100, 0],
+                    }}
+                    transition={{
+                        duration: 18,
+                        repeat: Infinity,
+                        ease: "linear"
+                    }}
+                    className="absolute -bottom-40 -left-40 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl"
                 />
             </div>
 
-            <div className="mx-auto max-w-6xl relative z-10">
-                {/* Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                    className="glass rounded-3xl p-6 mb-8 border border-white/20"
-                >
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                        <div>
-                            <h1 className="text-3xl font-bold gradient-text">Performance Dashboard</h1>
-                            <p className="text-white/70 mt-2 text-sm">
-                                Timeline insights, shot patterns and AI feedback summary.
-                            </p>
+            <motion.div
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="relative w-full max-w-md"
+            >
+                {/* Main card */}
+                <div className="glass rounded-3xl p-8 shadow-2xl border border-white/20">
+                    {/* Header */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="text-center mb-8"
+                    >
+                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-r from-green-500 to-blue-600 mb-4 pulse-glow">
+                            <i className="fas fa-user-plus text-white text-2xl"></i>
                         </div>
+                        <h1 className="text-2xl font-bold gradient-text mb-2">Create Account</h1>
+                        <p className="text-white/60 text-sm">Join SportVision AI and start improving</p>
+                    </motion.div>
 
-                        <div className="flex gap-3">
-                            <Link
-                                to="/upload"
-                                className="px-4 py-2 rounded-xl glass border border-white/20 hover:bg-white/10 transition-all duration-300 text-sm flex items-center gap-2"
-                            >
-                                <span>📤</span>
-                                Upload New Video
-                            </Link>
-                            <Link
-                                to="/"
-                                className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all duration-300 text-sm font-semibold flex items-center gap-2"
-                            >
-                                <span>🏠</span>
-                                Home
-                            </Link>
-                        </div>
-                    </div>
-                </motion.div>
-
-                {/* Stats */}
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                    {stats.map((s, i) => (
+                    <form onSubmit={onSubmit} className="space-y-5">
                         <motion.div
-                            key={i}
-                            initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                            viewport={{ once: true, amount: 0.2 }}
-                            transition={{ duration: 0.5, delay: i * 0.1 }}
-                            whileHover={{ scale: 1.05, y: -5 }}
-                            className="glass rounded-2xl p-6 border border-white/20 hover:border-white/30 transition-all duration-300 group cursor-pointer"
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.3 }}
                         >
-                            <div className="flex items-center justify-between mb-4">
-                                <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${s.color} flex items-center justify-center text-xl group-hover:scale-110 transition-transform duration-300`}>
-                                    {s.icon}
-                                </div>
-                                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                            </div>
-                            <p className="text-sm text-white/60 mb-2">{s.title}</p>
-                            <p className="text-2xl font-bold mb-3">{s.value}</p>
-                            <div className="h-1 rounded-full bg-white/10 overflow-hidden">
-                                <motion.div 
-                                    className={`h-full bg-gradient-to-r ${s.color} rounded-full`}
-                                    initial={{ width: 0 }}
-                                    whileInView={{ width: "75%" }}
-                                    transition={{ duration: 1, delay: i * 0.2 }}
+                            <label className="block text-sm font-medium text-white/80 mb-2">
+                                Full Name
+                            </label>
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    value={form.name}
+                                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                                    placeholder="Enter your full name"
+                                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:border-blue-400 focus:bg-white/10 focus:outline-none transition-all duration-300"
+                                    required
                                 />
+                                <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <i className="fas fa-user text-white/30"></i>
+                                </div>
                             </div>
                         </motion.div>
-                    ))}
-                </div>
 
-                {/* Charts */}
-                <div className="grid lg:grid-cols-2 gap-6 mb-8">
-                    {/* Line Chart */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.4 }}
+                        >
+                            <label className="block text-sm font-medium text-white/80 mb-2">
+                                Email Address
+                            </label>
+                            <div className="relative">
+                                <input
+                                    type="email"
+                                    value={form.email}
+                                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                                    placeholder="Enter your email"
+                                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:border-blue-400 focus:bg-white/10 focus:outline-none transition-all duration-300"
+                                    required
+                                />
+                                <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <i className="fas fa-envelope text-white/30"></i>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.5 }}
+                        >
+                            <label className="block text-sm font-medium text-white/80 mb-2">
+                                Password
+                            </label>
+                            <div className="relative">
+                                <input
+                                    type="password"
+                                    value={form.password}
+                                    onChange={(e) => setForm({ ...form, password: e.target.value })}
+                                    placeholder="••••••••"
+                                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:border-blue-400 focus:bg-white/10 focus:outline-none transition-all duration-300"
+                                    required
+                                />
+                                <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <i className="fas fa-lock text-white/30"></i>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.6 }}
+                        >
+                            <label className="block text-sm font-medium text-white/80 mb-2">
+                                Confirm Password
+                            </label>
+                            <div className="relative">
+                                <input
+                                    type="password"
+                                    value={form.confirmPassword}
+                                    onChange={(e) => setForm({ ...form, confirmPassword: e.target.value })}
+                                    placeholder="••••••••"
+                                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:border-blue-400 focus:bg-white/10 focus:outline-none transition-all duration-300"
+                                    required
+                                />
+                                <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <i className="fas fa-shield-alt text-white/30"></i>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        <motion.button
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.7 }}
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            type="submit"
+                            disabled={isLoading}
+                            className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-green-500 to-blue-600 text-white font-semibold hover:from-green-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-lg hover:shadow-xl"
+                        >
+                            {isLoading ? (
+                                <div className="flex items-center justify-center">
+                                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
+                                    Creating account...
+                                </div>
+                            ) : (
+                                "Create Account"
+                            )}
+                        </motion.button>
+                    </form>
+
+                    {/* Footer */}
                     <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.6 }}
-                        className="glass rounded-3xl p-6 border border-white/20 hover:border-white/30 transition-all duration-300"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.8 }}
+                        className="mt-8 text-center space-y-4"
                     >
-                        <div className="flex items-center gap-3 mb-4">
-                            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center">
-                                📈
-                            </div>
-                            <div>
-                                <p className="font-semibold">Shot Accuracy Trend</p>
-                                <p className="text-sm text-white/60">
-                                    Weekly improvement based on analyzed clips.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="h-72">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <LineChart data={lineData}>
-                                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                                    <XAxis dataKey="day" stroke="rgba(255,255,255,0.6)" />
-                                    <YAxis stroke="rgba(255,255,255,0.6)" />
-                                    <Tooltip 
-                                        contentStyle={{
-                                            backgroundColor: 'rgba(0,0,0,0.8)',
-                                            border: '1px solid rgba(255,255,255,0.2)',
-                                            borderRadius: '12px',
-                                            color: 'white'
-                                        }}
-                                    />
-                                    <Line 
-                                        type="monotone" 
-                                        dataKey="accuracy" 
-                                        stroke="url(#lineGradient)" 
-                                        strokeWidth={3}
-                                        dot={{ fill: '#60A5FA', strokeWidth: 2, r: 6 }}
-                                        activeDot={{ r: 8, fill: '#3B82F6' }}
-                                    />
-                                    <defs>
-                                        <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
-                                            <stop offset="0%" stopColor="#3B82F6" />
-                                            <stop offset="100%" stopColor="#8B5CF6" />
-                                        </linearGradient>
-                                    </defs>
-                                </LineChart>
-                            </ResponsiveContainer>
-                        </div>
-                    </motion.div>
-
-                    {/* Bar Chart */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.6, delay: 0.1 }}
-                        className="glass rounded-3xl p-6 border border-white/20 hover:border-white/30 transition-all duration-300"
-                    >
-                        <div className="flex items-center gap-3 mb-4">
-                            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
-                                📊
-                            </div>
-                            <div>
-                                <p className="font-semibold">Most Analyzed Sports</p>
-                                <p className="text-sm text-white/60">
-                                    Distribution of detected sports activities.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="h-72">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <BarChart data={barData}>
-                                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                                    <XAxis dataKey="shot" stroke="rgba(255,255,255,0.6)" />
-                                    <YAxis stroke="rgba(255,255,255,0.6)" />
-                                    <Tooltip 
-                                        contentStyle={{
-                                            backgroundColor: 'rgba(0,0,0,0.8)',
-                                            border: '1px solid rgba(255,255,255,0.2)',
-                                            borderRadius: '12px',
-                                            color: 'white'
-                                        }}
-                                    />
-                                    <Bar dataKey="count" fill="url(#barGradient)" radius={[4, 4, 0, 0]} />
-                                    <defs>
-                                        <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="0%" stopColor="#8B5CF6" />
-                                            <stop offset="100%" stopColor="#EC4899" />
-                                        </linearGradient>
-                                    </defs>
-                                </BarChart>
-                            </ResponsiveContainer>
-                        </div>
-                    </motion.div>
-                </div>
-
-                {/* Feedback */}
-                <div className="grid lg:grid-cols-3 gap-6">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.6 }}
-                        className="lg:col-span-2 glass rounded-3xl p-6 border border-white/20"
-                    >
-                        <div className="flex items-center gap-3 mb-6">
-                            <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center text-xl">
-                                🤖
-                            </div>
-                            <div>
-                                <p className="font-semibold text-lg">AI Feedback Summary</p>
-                                <p className="text-sm text-white/60">
-                                    High-impact coaching insights generated from events.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="space-y-4">
-                            {feedback.map((f, i) => (
-                                <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0, x: -20 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: i * 0.1 }}
-                                    className="glass rounded-2xl p-4 text-sm text-white/80 border border-white/10 hover:border-white/20 transition-all duration-300 group"
-                                >
-                                    <div className="flex items-start gap-3">
-                                        <div className="w-6 h-6 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 flex items-center justify-center text-xs font-bold mt-0.5">
-                                            {i + 1}
-                                        </div>
-                                        <p className="group-hover:text-white transition-colors">{f}</p>
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </div>
-                    </motion.div>
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.6, delay: 0.1 }}
-                        className="glass rounded-3xl p-6 border border-white/20"
-                    >
-                        <div className="flex items-center gap-3 mb-6">
-                            <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center text-xl">
-                                ⚡
-                            </div>
-                            <div>
-                                <p className="font-semibold text-lg">Quick Actions</p>
-                                <p className="text-sm text-white/60">
-                                    Navigate your workflow faster.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="space-y-3">
-                            <Link
-                                to="/upload"
-                                className="block px-4 py-3 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 text-center group"
+                        <p className="text-sm text-white/60">
+                            Already have an account?{" "}
+                            <Link 
+                                to="/login" 
+                                className="text-blue-400 hover:text-blue-300 font-medium transition-colors"
                             >
-                                <span className="group-hover:scale-110 inline-block transition-transform">📤</span>
-                                {" "}Upload New Video
+                                Sign in
                             </Link>
-
-                            <motion.button 
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
-                                className="w-full px-4 py-3 rounded-2xl glass border border-white/20 hover:bg-white/10 transition-all duration-300 group"
-                            >
-                                <span className="group-hover:scale-110 inline-block transition-transform">⏱️</span>
-                                {" "}View Timeline
-                            </motion.button>
-
-                            <motion.button 
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
-                                className="w-full px-4 py-3 rounded-2xl glass border border-white/20 hover:bg-white/10 transition-all duration-300 group"
-                            >
-                                <span className="group-hover:scale-110 inline-block transition-transform">📊</span>
-                                {" "}Download Report
-                            </motion.button>
-                        </div>
+                        </p>
+                        
+                        <Link 
+                            to="/" 
+                            className="inline-flex items-center text-xs text-white/50 hover:text-white/70 transition-colors"
+                        >
+                            <span className="mr-1">←</span>
+                            Back to Home
+                        </Link>
                     </motion.div>
                 </div>
-            </div>
+
+                {/* Decorative elements */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.9, duration: 0.5 }}
+                    className="absolute -top-4 -left-4 w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full blur-sm opacity-60"
+                />
+                <motion.div
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 1.1, duration: 0.5 }}
+                    className="absolute -bottom-4 -right-4 w-6 h-6 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full blur-sm opacity-60"
+                />
+            </motion.div>
         </div>
     );
 }
-
