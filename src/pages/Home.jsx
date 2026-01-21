@@ -422,9 +422,31 @@ export default function Home() {
                 </div>
             </header>
 
+            {/* Banner Image */}
+            <div className="relative z-10 mx-auto max-w-6xl px-4 pt-6">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="relative h-48 md:h-64 rounded-3xl overflow-hidden glass border border-white/20"
+                >
+                    <img
+                        src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1200&h=400&fit=crop&crop=center"
+                        alt="Sports Banner"
+                        className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent flex items-center">
+                        <div className="px-8">
+                            <h2 className="text-2xl md:text-4xl font-bold text-white mb-2">Multi-Sport AI Analysis</h2>
+                            <p className="text-white/80 text-sm md:text-base">Professional insights for every athlete</p>
+                        </div>
+                    </div>
+                </motion.div>
+            </div>
+
             {/* Hero */}
             <main className="relative z-10">
-                <section className="mx-auto max-w-6xl px-4 pt-10 pb-14">
+                <section className="mx-auto max-w-6xl px-4 pt-8 pb-14">
                     <div className="grid lg:grid-cols-2 gap-10 items-center">
                         {/* Left */}
                         <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={1}>
@@ -723,9 +745,4 @@ export default function Home() {
             </main>
         </div>
     );
-<<<<<<< HEAD
 }
-=======
-}
-
->>>>>>> 6806a43730c59c4e254425215d9a9b0fd5d777b8
