@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 
->>>>>>> 6806a43730c59c4e254425215d9a9b0fd5d777b8
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,7 +10,8 @@ export default function Register() {
         name: "",
         email: "",
         password: "",
-        confirmPassword: ""
+        confirmPassword: "",
+        role: "player"
     });
     const [isLoading, setIsLoading] = useState(false);
 
@@ -21,7 +19,7 @@ export default function Register() {
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        if (!form.name || !form.email || !form.password || !form.confirmPassword) {
+        if (!form.name || !form.email || !form.password || !form.confirmPassword || !form.role) {
             alert("Please fill all fields");
             return;
         }
@@ -40,7 +38,7 @@ export default function Register() {
             options: {
                 data: {
                     full_name: form.name,
-                    role: "player",
+                    role: form.role,
                 },
             },
         });
@@ -64,7 +62,7 @@ export default function Register() {
             {
                 id: userId,
                 full_name: form.name,
-                role: "player", // default role
+                role: form.role,
             },
         ]);
 
@@ -185,6 +183,31 @@ export default function Register() {
                             transition={{ delay: 0.5 }}
                         >
                             <label className="block text-sm font-medium text-white/80 mb-2">
+                                Role
+                            </label>
+                            <div className="relative">
+                                <select
+                                    value={form.role}
+                                    onChange={(e) => setForm({ ...form, role: e.target.value })}
+                                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:border-blue-400 focus:bg-white/10 focus:outline-none transition-all duration-300 appearance-none cursor-pointer"
+                                    required
+                                >
+                                    <option value="player" className="text-black">Player</option>
+                                    <option value="coach" className="text-black">Coach</option>
+                                    <option value="admin" className="text-black">Admin</option>
+                                </select>
+                                <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                    <i className="fas fa-chevron-down text-white/30"></i>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.6 }}
+                        >
+                            <label className="block text-sm font-medium text-white/80 mb-2">
                                 Password
                             </label>
                             <div className="relative">
@@ -205,7 +228,7 @@ export default function Register() {
                         <motion.div
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.6 }}
+                            transition={{ delay: 0.7 }}
                         >
                             <label className="block text-sm font-medium text-white/80 mb-2">
                                 Confirm Password
@@ -228,7 +251,7 @@ export default function Register() {
                         <motion.button
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.7 }}
+                            transition={{ delay: 0.8 }}
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             type="submit"
@@ -250,7 +273,7 @@ export default function Register() {
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: 0.8 }}
+                        transition={{ delay: 0.9 }}
                         className="mt-8 text-center space-y-4"
                     >
                         <p className="text-sm text-white/60">
