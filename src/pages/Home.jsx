@@ -1,4 +1,3 @@
-
 import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -23,7 +22,7 @@ const glowOrb = {
 
 function Stat({ label, value }) {
     return (
-        <motion.div 
+        <motion.div
             whileHover={{ scale: 1.05, y: -5 }}
             className="glass rounded-2xl border border-white/20 p-5 backdrop-blur-xl hover:border-white/30 transition-all duration-300 group cursor-pointer"
         >
@@ -35,7 +34,7 @@ function Stat({ label, value }) {
 
 function TrustBadge({ icon, title, desc }) {
     return (
-        <motion.div 
+        <motion.div
             whileHover={{ scale: 1.02, y: -2 }}
             className="glass rounded-2xl border border-white/20 px-4 py-3 backdrop-blur-xl flex items-start gap-3 hover:border-white/30 transition-all duration-300 group"
         >
@@ -377,7 +376,7 @@ export default function Home() {
             {/* Navbar */}
             <header className="relative z-10">
                 <div className="mx-auto max-w-6xl px-4 py-5 flex items-center justify-between">
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         className="flex items-center gap-3"
@@ -516,43 +515,43 @@ export default function Home() {
 
                                 {/* Sports Images Grid */}
                                 <div className="grid grid-cols-2 gap-3 mb-4">
-                                    <motion.div 
+                                    <motion.div
                                         whileHover={{ scale: 1.05 }}
                                         className="aspect-video rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-white/20 flex items-center justify-center overflow-hidden"
                                     >
-                                        <img 
-                                            src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=300&h=200&fit=crop&crop=center" 
-                                            alt="Cricket" 
+                                        <img
+                                            src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=300&h=200&fit=crop&crop=center"
+                                            alt="Cricket"
                                             className="w-full h-full object-cover rounded-xl opacity-80 hover:opacity-100 transition-opacity"
                                         />
                                     </motion.div>
-                                    <motion.div 
+                                    <motion.div
                                         whileHover={{ scale: 1.05 }}
                                         className="aspect-video rounded-xl bg-gradient-to-br from-green-500/20 to-blue-500/20 border border-white/20 flex items-center justify-center overflow-hidden"
                                     >
-                                        <img 
-                                            src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=300&h=200&fit=crop&crop=center" 
-                                            alt="Football" 
+                                        <img
+                                            src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=300&h=200&fit=crop&crop=center"
+                                            alt="Football"
                                             className="w-full h-full object-cover rounded-xl opacity-80 hover:opacity-100 transition-opacity"
                                         />
                                     </motion.div>
-                                    <motion.div 
+                                    <motion.div
                                         whileHover={{ scale: 1.05 }}
                                         className="aspect-video rounded-xl bg-gradient-to-br from-orange-500/20 to-red-500/20 border border-white/20 flex items-center justify-center overflow-hidden"
                                     >
-                                        <img 
-                                            src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=300&h=200&fit=crop&crop=center" 
-                                            alt="Basketball" 
+                                        <img
+                                            src="https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=300&h=200&fit=crop&crop=center"
+                                            alt="Basketball"
                                             className="w-full h-full object-cover rounded-xl opacity-80 hover:opacity-100 transition-opacity"
                                         />
                                     </motion.div>
-                                    <motion.div 
+                                    <motion.div
                                         whileHover={{ scale: 1.05 }}
                                         className="aspect-video rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-white/20 flex items-center justify-center overflow-hidden"
                                     >
-                                        <img 
-                                            src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=300&h=200&fit=crop&crop=center" 
-                                            alt="Badminton" 
+                                        <img
+                                            src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=300&h=200&fit=crop&crop=center"
+                                            alt="Badminton"
                                             className="w-full h-full object-cover rounded-xl opacity-80 hover:opacity-100 transition-opacity"
                                         />
                                     </motion.div>

@@ -1,22 +1,51 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
+import { supabase } from "../supabaseClient";
 
 export default function Login() {
     const navigate = useNavigate();
     const [form, setForm] = useState({ email: "", password: "" });
     const [isLoading, setIsLoading] = useState(false);
 
+
+
     const onSubmit = async (e) => {
         e.preventDefault();
-        if (!form.email || !form.password) return;
-        
         setIsLoading(true);
-        // Simulate loading
-        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email: form.email,
+            password: form.password,
+        });
+
         setIsLoading(false);
-        navigate("/dashboard");
+
+        if (error) {
+            alert(error.message);
+            return;
+        }
+
+
+        const user = data.user;
+
+        // ✅ Get role from profiles table
+        const { data: profile } = await supabase
+            .from("profiles")
+            .select("role")
+            .eq("id", user.id)
+            .single();
+
+        setIsLoading(false);
+
+        const role = profile?.role || "user";
+
+        // ✅ Role based redirect
+        if (role === "admin") navigate("/admin");
+        else if (role === "coach") navigate("/coach");
+        else navigate("/dashboard");
     };
+
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-[#070A14] via-[#0A0F1C] to-[#0D1117] text-white flex items-center justify-center px-4 relative overflow-hidden">
@@ -57,7 +86,7 @@ export default function Login() {
                 {/* Main card */}
                 <div className="glass rounded-3xl p-8 shadow-2xl border border-white/20">
                     {/* Header */}
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
@@ -147,16 +176,16 @@ export default function Login() {
                     >
                         <p className="text-sm text-white/60">
                             Don't have an account?{" "}
-                            <Link 
-                                to="/register" 
+                            <Link
+                                to="/register"
                                 className="text-blue-400 hover:text-blue-300 font-medium transition-colors"
                             >
                                 Create one
                             </Link>
                         </p>
-                        
-                        <Link 
-                            to="/" 
+
+                        <Link
+                            to="/"
                             className="inline-flex items-center text-xs text-white/50 hover:text-white/70 transition-colors"
                         >
                             <span className="mr-1">←</span>

@@ -1,30 +1,80 @@
-
-
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
+import { supabase } from "../supabaseClient";
 
 export default function Register() {
     const navigate = useNavigate();
-    const [form, setForm] = useState({ 
-        name: "", 
-        email: "", 
-        password: "", 
-        confirmPassword: "" 
+    const [form, setForm] = useState({
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: ""
     });
     const [isLoading, setIsLoading] = useState(false);
 
+
     const onSubmit = async (e) => {
         e.preventDefault();
-        if (!form.name || !form.email || !form.password || !form.confirmPassword) return;
-        if (form.password !== form.confirmPassword) return;
-        
+
+        if (!form.name || !form.email || !form.password || !form.confirmPassword) {
+            alert("Please fill all fields");
+            return;
+        }
+
+        if (form.password !== form.confirmPassword) {
+            alert("Passwords do not match");
+            return;
+        }
+
         setIsLoading(true);
-        // Simulate loading
-        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        // ✅ 1) Sign up user in Supabase Auth
+        const { data, error } = await supabase.auth.signUp({
+            email: form.email,
+            password: form.password,
+            options: {
+                data: {
+                    full_name: form.name,
+                    role: "player",
+                },
+            },
+        });
+
+        if (error) {
+            setIsLoading(false);
+            alert(error.message);
+            return;
+        }
+
+        const userId = data?.user?.id;
+
+        if (!userId) {
+            setIsLoading(false);
+            alert("Signup failed, please try again!");
+            return;
+        }
+
+        // ✅ 2) Insert user profile in profiles table
+        const { error: profileError } = await supabase.from("profiles").insert([
+            {
+                id: userId,
+                full_name: form.name,
+                role: "player", // default role
+            },
+        ]);
+
         setIsLoading(false);
-        navigate("/dashboard");
+
+        if (profileError) {
+            alert("Profile saving failed: " + profileError.message);
+            return;
+        }
+
+        alert("Registered successfully ✅ Now login!");
+        navigate("/login");
     };
+
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-[#070A14] via-[#0A0F1C] to-[#0D1117] text-white flex items-center justify-center px-4 relative overflow-hidden">
@@ -65,7 +115,7 @@ export default function Register() {
                 {/* Main card */}
                 <div className="glass rounded-3xl p-8 shadow-2xl border border-white/20">
                     {/* Header */}
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
@@ -201,16 +251,16 @@ export default function Register() {
                     >
                         <p className="text-sm text-white/60">
                             Already have an account?{" "}
-                            <Link 
-                                to="/login" 
+                            <Link
+                                to="/login"
                                 className="text-blue-400 hover:text-blue-300 font-medium transition-colors"
                             >
                                 Sign in
                             </Link>
                         </p>
-                        
-                        <Link 
-                            to="/" 
+
+                        <Link
+                            to="/"
                             className="inline-flex items-center text-xs text-white/50 hover:text-white/70 transition-colors"
                         >
                             <span className="mr-1">←</span>
