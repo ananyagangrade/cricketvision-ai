@@ -57,14 +57,7 @@ export default function Register() {
             return;
         }
 
-        // ✅ 2) Insert user profile in profiles table
-        const { error: profileError } = await supabase.from("profiles").insert([
-            {
-                id: userId,
-                full_name: form.name,
-                role: form.role,
-            },
-        ]);
+
 
         setIsLoading(false);
 
